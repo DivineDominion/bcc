@@ -42,4 +42,5 @@ deploy:
   on:
     repo: DivineDominion/bcc
     all_branches: true
-    condition: '"$TRAVIS_BRANCH" =~ ^release && "$TRAVIS_TAG" =~ ^v[0-9]'
+    tags: true
+    condition: '$TRAVIS_TAG =~ ^v[0-9]'
