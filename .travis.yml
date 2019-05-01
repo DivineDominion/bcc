@@ -24,7 +24,7 @@ script:
     -o ./build/bcc
     ./bcc.bmx
 
-after_success:
+before_deploy:
   - cd ./build
   - BCC_VERSION=`./bcc -v | sed 's/^.*\([0-9][0-9]*\.[0-9][0-9]*\).*/\1/'`
   - ZIP_FILENAME="bcc-v${BCC_VERSION}-${PLATFORM}-${CPU}.zip"
@@ -37,11 +37,11 @@ deploy:
   file_glob: true
   file: build/*.zip
   skip_cleanup: true
-  prerelease: true
+  draft: true
   api_key:
     secure: GhssmFHbe9Y+aLmhI6bwFmVmTnaZ+WQz4gM3UuxQJUi1Oww2fBF/KhVly5X8YXI9/Bgd0AP9Ufr/VuJJSzSxmZZITmvrmEHt349OUSdHYdLS9+bJIdN16wFPlo+WCePLNYCEVxYCeyQbnSSn3t8PRD+d/tJcR16VzLr9S8XNuk1xMLBoXdAvpxe78obM6XUzyDS5/XlgWYGJYw73+VInmiliWrC+UQ7RYY0jBMzS7efjEszR70UCa5P/jQ8ar6DeJmLdWXmbhjLnu/YC9jyo28aMOB4Mhyfx3H1vv7PRynbUJRnouEw8Fj3u/+l6BYznM79amV+avWohXTO4VP0db+WdRI/C25nOTVDMl0NIPXJH7gyEUlvqmgaKEJQ0OyIyUmzQZFWU9P8Ze76g+vgPGPeatKMkdVCwTIXXutcFr1d2+sXMbw/ZNwpWcb3ImOXbQpY9uuUTZBEj4s8ykhHWtzsed3SlhLhW0rfkH7bqgvajEasaO1XoOL33fboDicO1Q7i+4aRJXQ3dq/eBgEUfW08tF62RjgSVMoWoJW2IQ2upSbOM3NP/7sMu44/Yg9jciuV2b/WcN5HYc4cUGFtV/pAw0hnG21PXFaucwPsTs9EYstGNc/GvB3aFujmNxjyxmD2XaYuFOTG3Wrj/yub/X0+WklAoMDj8xZi65vz/rs8=
   on:
     repo: DivineDominion/bcc
     all_branches: true
-    condition: $TRAVIS_BRANCH =~ ^release
+    condition: '"$TRAVIS_BRANCH" =~ ^release && "$TRAVIS_TAG" =~ ^v[0-9]'
     tags: true
