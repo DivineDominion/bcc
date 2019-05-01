@@ -30,6 +30,7 @@ before_deploy:
   - echo "Zipping $ZIP_FILENAME"
   - zip "$ZIP_FILENAME" bcc
   - ls -la
+  - cd ..
 
 deploy:
   provider: releases
