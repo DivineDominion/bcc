@@ -32,3 +32,12 @@ after_success:
   - zip "$ZIP_FILENAME" bcc
   - ls -la
 
+deploy:
+  provider: releases
+  file_glob: true
+  file: build/*.zip
+  skip_cleanup: true
+  draft: true
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^release
